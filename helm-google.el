@@ -173,7 +173,8 @@ If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
                      'face 'link)
                     "\n"))
                  (propertize
-                  (plist-get result :url)
+                  (url-unhex-string
+                   (plist-get result :url))
                   'face (if cite 'glyphless-char 'link)))))
             results)))
 
@@ -193,6 +194,7 @@ If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
     (requires-pattern)
     (nohighlight)
     (multiline)
+    (match . identity)
     (volatile)))
 
 ;;;###autoload
@@ -207,7 +209,7 @@ If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
                 (region-beginning)
                 (region-end)))
            arg))
-        (helm-input-idle-delay 0.3))
+        (helm-input-idle-delay 0.4))
     (helm :sources 'helm-source-google
           :prompt "Google: "
           :input region
