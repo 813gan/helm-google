@@ -30,7 +30,6 @@
 
 (require 'helm)
 (require 'helm-net)
-(require 'google)
 
 (defgroup helm-google '()
   "Customization group for `helm-google'."
@@ -39,9 +38,7 @@
   :group 'comm)
 
 (defcustom helm-google-search-function 'helm-google-html-search
-  "The function that should be used to get the search results.
-Available functions are currently `helm-google-api-search' and
-`helm-google-html-search'."
+  "The function that should be used to get the search results."
   :type 'symbol
   :group 'helm-google)
 
@@ -158,10 +155,7 @@ If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
     results))
 
 (defun helm-google-html-search ()
-  "Get Google results by scraping the website.
-This is better than using the deprecated API. It gives more
-results but is tied to the html output so any change Google
-makes can break the results."
+  "Get Google results by scraping the website."
   (let* ((results (helm-google--search helm-pattern)))
     (mapcar (lambda (result)
               (let ((cite (plist-get result :cite)))
@@ -182,30 +176,6 @@ makes can break the results."
                   (plist-get result :url)
                   'face (if cite 'glyphless-char 'link)))))
             results)))
-
-(defun helm-google-api-search ()
-  "Get Google results using the `google.el' library.
-Since the API this library uses is deprecated it is not very reliable."
-  (let* ((results (google-search helm-pattern))
-         (responseData (google-result-field 'responseData results))
-         (records (google-result-field 'results responseData)))
-    (mapcar (lambda (record)
-              (concat
-               (propertize
-                (google-result-field 'titleNoFormatting record)
-                'face 'font-lock-variable-name-face)
-               "\n"
-               (replace-regexp-in-string
-                "\n" ""
-                (with-temp-buffer
-                  (insert (google-result-field 'content record))
-                  (html2text)
-                  (buffer-substring-no-properties (point-min) (point-max))))
-               "\n"
-               (propertize
-                (url-unhex-string (google-result-field 'url record))
-                'face 'link)))
-            records)))
 
 (defun helm-google-search ()
   "Invoke the search function set by `helm-google-search-function'."
