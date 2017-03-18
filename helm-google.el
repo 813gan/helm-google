@@ -201,8 +201,7 @@ If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
 (defun helm-google ( &optional arg)
   "Preconfigured `helm' : Google search."
   (interactive)
-  (let ((google-referer "https://github.com/steckerhalter/helm-google")
-        (region
+  (let ((region
          (if (not arg)
              (when (use-region-p)
                (buffer-substring-no-properties
