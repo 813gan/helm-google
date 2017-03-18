@@ -187,7 +187,6 @@ If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
 
 (defvar helm-source-google
   `((name . "Google")
-    (init . (lambda () (require 'google)))
     (action . helm-google-actions)
     (display-to-real . helm-google-display-to-real)
     (candidates . helm-google-search)
