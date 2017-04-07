@@ -42,8 +42,11 @@
   :type 'symbol
   :group 'helm-google)
 
-(defcustom helm-google-tld "com"
-  "The TLD of the google url to be used (com, de, fr, co.uk etc.)."
+(defcustom helm-google-url "https://encrypted.google.com/search?ie=UTF-8&oe=UTF-8&q=%s"
+  "The Google search url.
+`%s' is where the search terms are inserted. `encrypted' is used
+to avoid country-specific redirects. For country-specific
+searches you will want to use `www.google.TLD'."
   :type 'string
   :group 'helm-google)
 
@@ -64,17 +67,6 @@
 
 (defvar helm-google-input-history nil)
 (defvar helm-google-pending-query nil)
-
-(defun helm-google-url ()
-  "URL to google searches.
-If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
-  (concat "https://"
-          (if (string= "com" helm-google-tld)
-              "encrypted"
-            "www")
-          ".google."
-          helm-google-tld
-          "/search?ie=UTF-8&oe=UTF-8&q=%s"))
 
 (defun helm-google--process-html (html)
   (replace-regexp-in-string
@@ -146,7 +138,7 @@ If 'com' TLD is set use 'encrypted' subdomain to avoid country redirects."
 
 (defun helm-google--response-buffer-from-search (text &optional search-url)
   (let ((url-mime-charset-string "utf-8")
-        (url (format (or search-url (helm-google-url)) (url-hexify-string text))))
+        (url (format (or search-url helm-google-url) (url-hexify-string text))))
     (url-retrieve-synchronously url t)))
 
 (defun helm-google--search (text)
