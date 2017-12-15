@@ -18,7 +18,7 @@ Emacs Helm Interface for quick Google searches
 
 ### MELPA
 
-`helm-google` is on [MELPA](http://melpa.milkbox.net/) (see there for more info).
+`helm-google` is on [melpa](https://melpa.org/) (see there for more info).
 
 ## Usage
 
@@ -34,7 +34,9 @@ Or bind it to a key:
 
 If a region is selected it will take that as default input and search Google immediately. Otherwise it will start to search after you have entered a term. Pressing `RET` on a result calls the `browse-url` function which should open the URL in your web browser.
 
-There are two Helm actions defined. The first (default) action is the one mentioned above and the second action will open the URL with the internal `Emacs Web Wowser` (EWW, since Emacs 24.4). You can press <key>F2</key> to execute this action directly.
+To use the internal `Emacs Web Wowser` (EWW, since Emacs 24.4) to open an url, press <key>F2</key>.
+
+To copy the link into the clipboard, press <key>F3</key>.
 
 If you want use EWW by default you can set it as your default browser like so:
 
