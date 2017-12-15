@@ -1,9 +1,9 @@
 ;;; helm-google.el --- Emacs Helm Interface for quick Google searches
 
-;; Copyright (C) 2014, Steckerhalter
+;; Copyright (C) 2014-2017, Steckerhalter
 
 ;; Author: steckerhalter
-;; Package-Requires: ((helm "0") (google "0"))
+;; Package-Requires: ((helm "0"))
 ;; URL: https://github.com/steckerhalter/helm-google
 ;; Keywords: helm google search browse
 
