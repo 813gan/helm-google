@@ -46,6 +46,14 @@ If you want use EWW by default you can set it as your default browser like so:
 
 If you want to keep the search open use `C-z` instead of `RET`.
 
+### Idle delay
+
+The default delay after a new search is made when you stopped typing is `0.4s`. You can customize this and set it to 1s for example:
+
+``` emacs-lisp
+(setq helm-google-idle-delay 1)
+```
+
 ### helm-google-suggest
 
 `helm-google` is added as an action to `helm-google-suggest` (thanks to Dickby). Press TAB and choose `Helm-Google` or use the shortcut listed there directly.
