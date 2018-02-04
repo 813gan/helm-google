@@ -58,10 +58,9 @@ searches you will want to use `www.google.TLD'."
 (defcustom helm-google-actions
   '(("Browse URL" . browse-url)
     ("Browse URL with EWW" . (lambda (candidate)
-                               (eww-browse-url
-                                (helm-google-display-to-real candidate))))
+                               (eww-browse-url candidate)))
     ("Copy URL to clipboard" . (lambda (candidate)
-                                 (kill-new (helm-google-display-to-real candidate)))))
+                                 (kill-new  candidate))))
   "List of actions for helm-google sources."
   :group 'helm-google
   :type '(alist :key-type string :value-type function))
