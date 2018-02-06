@@ -115,7 +115,10 @@ See `helm-google-engines' for available engines."
 (defun helm-google--search (text engine)
   "Fetch the response buffer and parse it with the corresponding
 parsing function."
-  (let* ((search-url (alist-get engine helm-google-engines))
+  (let* ((search-url (or (and (eq engine 'google)
+                              (boundp 'helm-google-url) ;support legacy variable
+                              helm-google-url)
+                         (alist-get engine helm-google-engines)))
          (buf (helm-google--response-buffer-from-search text search-url))
          (results (funcall (intern (format "helm-google--parse-%s" engine)) buf)))
     results))
