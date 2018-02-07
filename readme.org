@@ -66,7 +66,9 @@ Google is the default engine. To make Searx your default use:
 
 I'm using a default Searx instance that does not impose a rate limit. =searx.me= or =searx.info= are not usable because of the rate limitation.
 
-I have limited the engines to =google= because the quality of the other search engines is poor IMO. Sometimes Searx instances fail to get results from Google, so if you don't get results, try another instance from http://stats.searx.oe5tpo.com/
+I have limited the engines to =google= because the quality of the other search engines is poor IMO. Sometimes Searx instances fail to get results from Google, so if you don't get results, try another instance from http://stats.searx.oe5tpo.com/, or add more search engines to the url:
+
+: https://searx.dk/?engines=google,bing,yahoo&format=json&q=%s
 
 For additional Searx options see: https://asciimoo.github.io/searx/dev/search\_api.html
 
@@ -76,7 +78,7 @@ If you want to tweak a search url, you can modify the alist =helm-google-engines
 
 *** Idle delay
 
-The default delay after a new search is made when you stopped typing is =0.5s=. You can customize this and set it to =1s= for example:
+When you stop typing, a search is launched after an idle time of =0.5s= by default. You can customize this and set it to =1s= for example:
 
 #+BEGIN_SRC emacs-lisp
 (setq helm-google-idle-delay 1)
