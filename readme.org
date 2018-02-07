@@ -70,7 +70,7 @@ I have limited the engines to =google= because the quality of the other search e
 
 : https://searx.dk/?engines=google,bing,yahoo&format=json&q=%s
 
-For additional Searx options see: https://asciimoo.github.io/searx/dev/search\_api.html
+For additional Searx options see: https://asciimoo.github.io/searx/dev/search_api.html
 
 *** Search parameters
 
