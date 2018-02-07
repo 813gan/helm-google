@@ -64,7 +64,7 @@ Google is the default engine. To make Searx your default use:
 
 I'm using a default Searx instance that does not impose a rate limit. searx.me or searx.info are not usable because of the rate limitation.
 
-I have limited the the engines to `google' because the quality of the other search engines is poor IMO. Sometimes Searx instances fail to get results from Google, so if you don't get results, try another instance from http://stats.searx.oe5tpo.com/
+I have limited the engines to `google` because the quality of the other search engines is poor IMO. Sometimes Searx instances fail to get results from Google, so if you don't get results, try another instance from http://stats.searx.oe5tpo.com/
 
 For additional Searx options see:
 https://asciimoo.github.io/searx/dev/search_api.html"
