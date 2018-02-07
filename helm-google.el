@@ -5,7 +5,7 @@
 ;; Author: steckerhalter
 ;; Package-Requires: ((helm "0"))
 ;; URL: https://github.com/steckerhalter/helm-google
-;; Keywords: helm google search browse
+;; Keywords: helm google search browse searx
 
 ;; This file is not part of GNU Emacs.
 
@@ -56,12 +56,14 @@ See `helm-google-engines' for available engines."
 
 (defcustom helm-google-engines
   '((google . "https://encrypted.google.com/search?ie=UTF-8&oe=UTF-8&q=%s")
-    (searx . "https://searx.info/?engines=google&format=json&q=%s"))
-  "List of search engines: name . search url."
+    (searx . "https://s.n0.is/?engines=google&format=json&q=%s"))
+  "Alist of search engines.
+Each element is a cons-cell (ENGINE . URL).
+`%s' is where the search terms are inserted in the URL."
   :group 'helm-google
   :type '(alist :key-type symbol :value-type string))
 
-(defcustom helm-google-idle-delay 0.4
+(defcustom helm-google-idle-delay 0.5
   "Time to wait when idle until query is made."
   :type 'integer
   :group 'helm-google)
@@ -124,6 +126,7 @@ parsing function."
     results))
 
 (defun helm-google-search (&optional engine)
+  "Query the search engine, parse the response and fontify the candidates."
   (let* ((engine (or engine helm-google-default-engine))
          (results (helm-google--search helm-pattern engine)))
     (mapcar (lambda (result)
@@ -149,15 +152,10 @@ parsing function."
                  (plist-get result :url))))
             results)))
 
-(defvar helm-source-google
-  `((name . "Google")
-    (action . helm-google-actions)
-    (candidates . helm-google-search)
-    (requires-pattern)
-    (nohighlight)
-    (multiline)
-    (match . identity)
-    (volatile)))
+
+(defun helm-google-engine-string ()
+  (capitalize
+   (format "%s" helm-google-default-engine)))
 
 ;;;###autoload
 (defun helm-google ( &optional arg)
@@ -170,8 +168,15 @@ parsing function."
                 (region-beginning)
                 (region-end)))
            arg)))
-    (helm :sources 'helm-source-google
-          :prompt "Google: "
+    (helm :sources `((name . ,(helm-google-engine-string))
+                     (action . helm-google-actions)
+                     (candidates . helm-google-search)
+                     (requires-pattern)
+                     (nohighlight)
+                     (multiline)
+                     (match . identity)
+                     (volatile))
+          :prompt (concat (helm-google-engine-string) ": ")
           :input region
           :input-idle-delay helm-google-idle-delay
           :buffer "*helm google*"

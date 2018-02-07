@@ -1,6 +1,8 @@
 # helm-google
 
-Emacs Helm Interface for quick Google searches
+Emacs Helm Interface for quick web searches.
+
+Currently `helm-google` supports Google and [Searx](https://asciimoo.github.io/searx/)
 
 ## Screenshot
 
@@ -46,14 +48,40 @@ If you want use EWW by default you can set it as your default browser like so:
 
 If you want to keep the search open use `C-z` instead of `RET`.
 
+## Customization
+
+The following customizations can also be made via `M-x customize-group RET helm-google RET`.
+
+### Default search engine
+
+Google is the default engine. To make Searx your default use:
+
+``` emacs-lisp
+(setq helm-google-default-engine 'searx)
+```
+
+#### Searx infos
+
+I'm using a default Searx instance that does not impose a rate limit. searx.me or searx.info are not usable because of the rate limitation.
+
+I have limited the the engines to `google' because the quality of the other search engines is poor IMO. Sometimes Searx instances fail to get results from Google, so if you don't get results, try another instance from http://stats.searx.oe5tpo.com/
+
+For additional Searx options see:
+https://asciimoo.github.io/searx/dev/search_api.html"
+
+
+### Search parameters
+
+If you want to tweak a search url, you can modify the alist `helm-google-engines`. 
+
 ### Idle delay
 
-The default delay after a new search is made when you stopped typing is `0.4s`. You can customize this and set it to 1s for example:
+The default delay after a new search is made when you stopped typing is `0.5s`. You can customize this and set it to `1s` for example:
 
 ``` emacs-lisp
 (setq helm-google-idle-delay 1)
 ```
 
-### helm-google-suggest
+## helm-google-suggest
 
 `helm-google` is added as an action to `helm-google-suggest` (thanks to Dickby). Press TAB and choose `Helm-Google` or use the shortcut listed there directly.
