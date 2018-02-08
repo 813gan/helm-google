@@ -158,16 +158,14 @@ parsing function."
    (format "%s" helm-google-default-engine)))
 
 ;;;###autoload
-(defun helm-google ( &optional arg)
-  "Preconfigured `helm' : Google search."
+(defun helm-google (&optional engine search-term)
+  "Web search interface for Emacs."
   (interactive)
-  (let ((region
-         (if (not arg)
-             (when (use-region-p)
-               (buffer-substring-no-properties
-                (region-beginning)
-                (region-end)))
-           arg)))
+  (let ((input (or search-term (when (use-region-p)
+                                 (buffer-substring-no-properties
+                                  (region-beginning)
+                                  (region-end)))))
+        (helm-google-default-engine (or engine helm-google-default-engine)))
     (helm :sources `((name . ,(helm-google-engine-string))
                      (action . helm-google-actions)
                      (candidates . helm-google-search)
@@ -177,14 +175,26 @@ parsing function."
                      (match . identity)
                      (volatile))
           :prompt (concat (helm-google-engine-string) ": ")
-          :input region
+          :input input
           :input-idle-delay helm-google-idle-delay
           :buffer "*helm google*"
           :history 'helm-google-input-history)))
 
+;;;###autoload
+(defun helm-google-searx (&optional search-term)
+  "Explicitly use Searx for the web search."
+  (interactive)
+  (helm-google 'searx search-term))
+
+;;;###autoload
+(defun helm-google-google (&optional search-term)
+  "Explicitly use Google for the web search."
+  (interactive)
+  (helm-google 'google search-term))
+
 (add-to-list 'helm-google-suggest-actions
              '("Helm-Google" . (lambda (candidate)
-                                 (helm-google candidate))))
+                                 (helm-google nil candidate))))
 
 (provide 'helm-google)
 

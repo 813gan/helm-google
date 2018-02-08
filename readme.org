@@ -26,15 +26,20 @@ Currently =helm-google= supports Google and [[https://asciimoo.github.io/searx/]
 
 Call it with:
 
-#+BEGIN_EXAMPLE
-M-x helm-google
-#+END_EXAMPLE
+: M-x helm-google
 
-Or bind it to a key:
+This will use the default search engine (Google is set by default, for customization see below).
 
-#+BEGIN_SRC lisp
+To bind it to a key:
+
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-h C--") 'helm-google)
 #+END_SRC
+
+To use one of the search engines explicitly instead of the default, use the appropriate function:
+
+: M-x helm-google-searx
+: M-x helm-google-google
 
 If a region is selected it will take that as default input and search Google immediately. Otherwise it will start to search after you have entered a term. Pressing =RET= on a result calls the =browse-url= function which should open the URL in your web browser.
 
@@ -48,7 +53,7 @@ If you want use EWW by default you can set it as your default browser like so:
 (setq browse-url-browser-function 'eww-browse-url)
 #+END_SRC
 
-If you want to keep the search open use =C-z= instead of =RET=.
+If you want to keep the search open use =C-z= or =C-j= instead of =RET=.
 
 ** Customization
 
