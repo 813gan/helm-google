@@ -41,7 +41,7 @@ To use one of the search engines explicitly instead of the default, use the appr
 : M-x helm-google-searx
 : M-x helm-google-google
 
-If a region is selected it will take that as default input and search Google immediately. Otherwise it will start to search after you have entered a term. Pressing =RET= on a result calls the =browse-url= function which should open the URL in your web browser.
+If a region is selected it will take that as default input and search the web immediately. Otherwise it will start to search after you have entered a term. Pressing =RET= on a result calls the =browse-url= function which should open the URL in your web browser.
 
 To use the internal =Emacs Web Wowser= (EWW, since Emacs 24.4) to open an url, press @@html:<key>@@F2@@html:</key>@@.
 
