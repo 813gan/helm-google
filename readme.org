@@ -45,11 +45,11 @@ If a region is selected it will take that as default input and search the web im
 
 *** Actions
 
-You can press @@html:<key>@@TAB@@html:</key>@@ to view and choose alternative actions or press the appropriate key directly:
+You can press =TAB= to view and choose alternative actions or press the appropriate key directly:
 
-| @@html:<key>@@F2@@html:</key>@@ | use the internal =Emacs Web Wowser= (EWW, since Emacs 24.4) to open the url |
-| @@html:<key>@@F3@@html:</key>@@ | copy the link into the clipboard                                            |
-| @@html:<key>@@F4@@html:</key>@@ | browse the url with the webkit xwidget (if your Emacs supports it)          |
+| F2 | use the internal =Emacs Web Wowser= (EWW, since Emacs 24.4) to open the url |
+| F3 | copy the link into the clipboard                                            |
+| F4 | browse the url with the webkit xwidget (if your Emacs supports it)          |
 
 If you want use EWW by default you can set it as your default browser like so:
 
