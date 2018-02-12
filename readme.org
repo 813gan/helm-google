@@ -43,9 +43,13 @@ To use one of the search engines explicitly instead of the default, use the appr
 
 If a region is selected it will take that as default input and search the web immediately. Otherwise it will start to search after you have entered a term. Pressing =RET= on a result calls the =browse-url= function which should open the URL in your web browser.
 
-To use the internal =Emacs Web Wowser= (EWW, since Emacs 24.4) to open an url, press @@html:<key>@@F2@@html:</key>@@.
+*** Actions
 
-To copy the link into the clipboard, press @@html:<key>@@F3@@html:</key>@@.
+You can press @@html:<key>@@TAB@@html:</key>@@ to view and choose alternative actions or press the appropriate key directly:
+
+| @@html:<key>@@F2@@html:</key>@@ | use the internal =Emacs Web Wowser= (EWW, since Emacs 24.4) to open the url |
+| @@html:<key>@@F3@@html:</key>@@ | copy the link into the clipboard                                            |
+| @@html:<key>@@F4@@html:</key>@@ | browse the url with the webkit xwidget (if your Emacs supports it)          |
 
 If you want use EWW by default you can set it as your default browser like so:
 
