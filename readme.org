@@ -81,9 +81,17 @@ I have limited the engines to =google= because the quality of the other search e
 
 For additional Searx options see: https://asciimoo.github.io/searx/dev/search_api.html
 
-*** Search parameters
+*** Search url and parameters
 
 If you want to tweak a search url, you can modify the alist =helm-google-engines=.
+
+To do it in elisp use =add-to-list=, for example to modify the searx url:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'helm-google-engines '(searx . "https://searx.info/?engines=google&format=json&q=%s"))
+#+END_SRC
+
+This will /shadow/ the old value which is the correct way to "modify" an alist entry.
 
 *** Idle delay
 
