@@ -6,7 +6,7 @@ Currently =helm-google= supports Google and [[https://asciimoo.github.io/searx/]
 
 ** Screenshot
 
-[[https://raw.github.com/steckerhalter/helm-google/master/screenshot.png]]
+[[https://framagit.org/steckerhalter/helm-google/raw/master/screenshot.png]]
 
 ** Installation
 
@@ -15,7 +15,7 @@ Currently =helm-google= supports Google and [[https://asciimoo.github.io/searx/]
 =quelpa= is at https://github.com/quelpa/quelpa
 
 #+BEGIN_SRC emacs-lisp
-(quelpa '(helm-google :fetcher github :repo "steckerhalter/helm-google"))
+(quelpa '(helm-google :fetcher git :url "https://framagit.org/steckerhalter/helm-google.git"))
 #+END_SRC
 
 *** MELPA
