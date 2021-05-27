@@ -95,12 +95,17 @@ Each element is a cons-cell (ENGINE . URL).
   "Parse the html response from Google."
   (helm-google--with-buffer buf
       (let (results result)
-        (while (re-search-forward "class=\"r\"><a href=\"/url\\?q=\\(.*?\\)&amp;sa" nil t)
+        (while (re-search-forward "class=\"kCrYT\"><a href=\"/url\\?q=\\(.*?\\)&amp;sa" nil t)
           (setq result (plist-put result :url (match-string-no-properties 1)))
-          (re-search-forward "\">\\(.*?\\)</a></h3>" nil t)
+          (re-search-forward "BNeawe vvjwJb AP7Wnd\">\\(.*?\\)</div>" nil t)
           (setq result (plist-put result :title (helm-google--process-html (match-string-no-properties 1))))
-          (re-search-forward "class=\"st\">\\([\0-\377[:nonascii:]]*?\\)</span>" nil t)
-          (setq result (plist-put result :content (helm-google--process-html (match-string-no-properties 1))))
+          ;; This check is necessary because of featured results
+          (if (looking-at "</h3>")
+              (progn
+                (re-search-forward "BNeawe s3v9rd" nil t)
+                (re-search-forward "BNeawe s3v9rd" nil t)
+                (re-search-forward "\">\\(.*?\\)</div>" nil t)
+                (setq result (plist-put result :content (helm-google--process-html (match-string-no-properties 1))))))
           (add-to-list 'results result t)
           (setq result nil))
         results)))
