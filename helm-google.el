@@ -59,7 +59,7 @@ See `helm-google-engines' for available engines."
 
 (defcustom helm-google-engines
   '((google . "https://encrypted.google.com/search?ie=UTF-8&oe=UTF-8&q=%s")
-    (searx . "https://searx.dk/?engines=google&format=json&q=%s")
+    (searx . "https://metasearx.com/?format=json&q=%s")
     (brave . "https://api.search.brave.com/res/v1/web/search?q=%s"))
   "Alist of search engines.
 Each element is a cons-cell (ENGINE . URL).
