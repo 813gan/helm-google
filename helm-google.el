@@ -1,11 +1,14 @@
 ;;; helm-google.el --- Emacs Helm Interface for quick Google searches -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014-2018, Steckerhalter
+;;               2024,      813gan
 
 ;; Author: steckerhalter
+;; Package: helm-google
 ;; Package-Requires: ((helm "0"))
 ;; URL: https://framagit.org/steckerhalter/helm-google
 ;; Keywords: helm google search browse searx
+;; Version: 1.0
 
 ;; This file is not part of GNU Emacs.
 
