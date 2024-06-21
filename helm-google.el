@@ -182,6 +182,17 @@ parsing function."
   (capitalize
    (format "%s" helm-google-default-engine)))
 
+(defvar helm-source-google
+  (helm-build-sync-source "helm for WWW"
+    :name (helm-google-engine-string)
+    :action 'helm-google-actions
+    :candidates #'helm-google-search
+    :requires-pattern 3
+    :nohighlight 't
+    :multiline 't
+    :match '(identity)
+    :volatile 't))
+
 ;;;###autoload
 (defun helm-google (&optional engine search-term)
   "Web search interface for Emacs."
@@ -191,14 +202,7 @@ parsing function."
                                   (region-beginning)
                                   (region-end)))))
         (helm-google-default-engine (or engine helm-google-default-engine)))
-    (helm :sources `((name . ,(helm-google-engine-string))
-                     (action . helm-google-actions)
-                     (candidates . helm-google-search)
-                     (requires-pattern)
-                     (nohighlight)
-                     (multiline)
-                     (match . identity)
-                     (volatile))
+    (helm :sources 'helm-source-google
           :prompt (concat (helm-google-engine-string) ": ")
           :input input
           :input-idle-delay helm-google-idle-delay
