@@ -39,7 +39,7 @@
   :group 'convenience
   :group 'comm)
 
-(defcustom helm-google-default-engine 'google
+(defcustom helm-google-default-engine 'searx
   "The default engine to use.
 See `helm-google-engines' for available engines."
   :type 'symbol
