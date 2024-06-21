@@ -1,4 +1,4 @@
-;;; helm-google.el --- Emacs Helm Interface for quick Google searches
+;;; helm-google.el --- Emacs Helm Interface for quick Google searches -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014-2018, Steckerhalter
 
