@@ -75,6 +75,13 @@ Each element is a cons-cell (ENGINE . URL).
   :type 'integer
   :group 'helm-google)
 
+(defcustom helm-google-user-agent
+  "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+  "User agent to use.
+g**gle may not work for some settings."
+  :type 'string
+  :group 'helm-google)
+
 (defvar helm-google-input-history nil)
 (defvar helm-google-pending-query nil)
 
@@ -152,10 +159,11 @@ parsing function."
                               (boundp 'helm-google-url) ;support legacy variable
                               helm-google-url)
                          (alist-get engine helm-google-engines)))
-         (url-request-extra-headers nil)
+         (url-request-extra-headers `(("User-Agent" . ,helm-google-user-agent)))
          (buf nil))
     (when (eq engine 'brave)
-        (setq url-request-extra-headers `(("X-Subscription-Token" . ,helm-google-brave-api-key))))
+      (add-to-list
+       'url-request-extra-headers `("X-Subscription-Token" . ,helm-google-brave-api-key)))
     (setq buf (helm-google--response-buffer-from-search text search-url))
     (funcall (intern (format "helm-google--parse-%s" engine)) buf)))
 
