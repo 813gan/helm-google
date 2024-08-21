@@ -128,11 +128,17 @@ Each element is a cons-cell (ENGINE . URL).
   (let* ((json-object-type 'plist)
          (json-array-type 'list)
          (results-results (plist-get (helm-google--with-buffer buf (json-read)) :web))
-         (results (plist-get results-results :results)) )
+         (results (plist-get results-results :results))
+         (render-description))
     (cl-loop for result in results
+             do (setq render-description
+                      (with-temp-buffer
+                        (insert (plist-get result :description))
+                        (shr-render-region (point-min) (point-max))
+                        (buffer-string)))
              collect `(:url ,(plist-get result :url)
                        :title ,(plist-get result :title)
-                       :content ,(plist-get result :description)) ) ))
+                       :content ,render-description) ) ))
 
 (defun helm-google--response-buffer-from-search (text search-url)
   (let ((url-mime-charset-string "utf-8")
