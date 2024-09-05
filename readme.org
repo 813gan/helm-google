@@ -2,7 +2,13 @@
 
 Emacs Helm Interface for quick web searches.
 
-Currently =helm-google= supports Google and [[https://asciimoo.github.io/searx/][Searx]]
+Currently =helm-google= supports [[https://asciimoo.github.io/searx/][Searx]], [[https://brave.com/search/][Brave Search]] and [[https://stract.com/beta/api/docs/#/search/widget][Stract]].
+Unauthenticated API is used for Searx and Stract.
+To use Brave you need to get [[https://brave.com/search/api/][API token]] and set it with
+
+#+BEGIN_src emacs-lisp
+(setq helm-google-brave-api-key "YOUR KEY HERE")
+#+END_src
 
 ** Screenshot
 
@@ -28,7 +34,7 @@ Call it with:
 
 : M-x helm-google
 
-This will use the default search engine (Google is set by default, for customization see below).
+This will use the default search engine ([[https://asciimoo.github.io/searx/][Searx]] is set by default, for customization see below).
 
 To bind it to a key:
 
@@ -38,8 +44,8 @@ To bind it to a key:
 
 To use one of the search engines explicitly instead of the default, use the appropriate function:
 
-: M-x helm-google-searx
-: M-x helm-google-google
+: M-x helm-google-brave
+: M-x helm-google-stract
 
 If a region is selected it will take that as default input and search the web immediately. Otherwise it will start to search after you have entered a term. Pressing =RET= on a result calls the =browse-url= function which should open the URL in your web browser.
 
@@ -65,10 +71,10 @@ The following customizations can also be made via =M-x customize-group RET helm-
 
 *** Default search engine
 
-Google is the default engine. To make Searx your default use:
+Searx is the default engine. To make Stract your default use:
 
 #+BEGIN_SRC emacs-lisp
-(setq helm-google-default-engine 'searx)
+(setq helm-google-default-engine 'stract)
 #+END_SRC
 
 **** Searx infos
