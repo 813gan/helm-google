@@ -63,7 +63,9 @@ See `helm-google-engines' for available engines."
 (defcustom helm-google-engines
   '((google . "https://encrypted.google.com/search?ie=UTF-8&oe=UTF-8&q=%s")
     (searx . "https://metasearx.com/?format=json&q=%s")
-    (brave . "https://api.search.brave.com/res/v1/web/search?q=%s"))
+    (brave . "https://api.search.brave.com/res/v1/web/search?q=%s")
+    (stract . "https://stract.com/beta/api/search")
+    )
   "Alist of search engines.
 Each element is a cons-cell (ENGINE . URL).
 `%s' is where the search terms are inserted in the URL."
@@ -147,6 +149,22 @@ g**gle may not work for some settings."
                        :title ,(plist-get result :title)
                        :content ,render-description) ) ))
 
+(defun helm-google--parse-stract (buf)
+  "Parse the json response from Stract search stored in BUF."
+  (let* ((json-object-type 'plist)
+         (json-array-type 'list)
+         (results (plist-get (helm-google--with-buffer buf (json-read)) :webpages))
+         (render-description))
+    (cl-loop for result in results
+             do (setq render-description
+                      (let* ((text-fragments-list (plist-get result :snippet))
+                             (fragments-list (plist-get text-fragments-list :text))
+                             (fragments (plist-get fragments-list :fragments)))
+                        (mapconcat (lambda (f) (plist-get f :text)) fragments "") ))
+             collect `(:url ,(plist-get result :url)
+                       :title ,(plist-get result :title)
+                       :content ,render-description) ) ))
+
 (defun helm-google--response-buffer-from-search (text search-url)
   (let ((url-mime-charset-string "utf-8")
         (url (format search-url (url-hexify-string text))))
@@ -160,11 +178,22 @@ parsing function."
                               helm-google-url)
                          (alist-get engine helm-google-engines)))
          (url-request-extra-headers `(("User-Agent" . ,helm-google-user-agent)))
+         (url-request-method "GET")
+         (url-request-data nil)
          (buf nil))
-    (when (eq engine 'brave)
+    (cond
+     ((eq engine 'stract)
+      (progn
+        (add-to-list
+       'url-request-extra-headers '("Content-Type" . "application/json"))
+        (setq url-request-method "POST"
+              url-request-data (json-serialize `((query . ,text))))))
+     ((eq engine 'brave)
       (add-to-list
-       'url-request-extra-headers `("X-Subscription-Token" . ,helm-google-brave-api-key)))
+       'url-request-extra-headers `("X-Subscription-Token" . ,helm-google-brave-api-key))))
     (setq buf (helm-google--response-buffer-from-search text search-url))
+    (when (bound-and-true-p helm-google---debug-write-response)
+      (with-current-buffer buf (write-region (point-min) (point-max) "/tmp/helm-google-debug")))
     (funcall (intern (format "helm-google--parse-%s" engine)) buf)))
 
 (defun helm-google-search (&optional engine)
@@ -243,6 +272,12 @@ parsing function."
   "Explicitly use Google for the web search."
   (interactive)
   (helm-google 'brave search-term))
+
+;;;###autoload
+(defun helm-google-stract (&optional search-term)
+  "Explicitly use Google for the web search."
+  (interactive)
+  (helm-google 'stract search-term))
 
 (add-to-list 'helm-google-suggest-actions
              '("Helm-Google" . (lambda (candidate)
